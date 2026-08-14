@@ -9,13 +9,6 @@
 
 FROM python:3.12-slim
 
-# UID/GID do usuário do host. Sem isso, no Linux, todo arquivo que o container
-# grava no repositório (notebook salvo, checkpoint) sai com dono root.
-# O Makefile preenche esses argumentos automaticamente.
-ARG UID=1000
-ARG GID=1000
-ARG USUARIO=aluno
-
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1 \
@@ -33,8 +26,20 @@ RUN apt-get update \
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install -r /tmp/requirements.txt && rm /tmp/requirements.txt
 
-# Usuário não-root. `getent` evita colisão quando o GID do host já existe na
-# imagem (no macOS, por exemplo, o GID costuma ser 20 — o `dialout` do Debian).
+# UID/GID do usuário do host. Sem isso, no Linux, todo arquivo que o container
+# grava no repositório (notebook salvo, checkpoint) sai com dono root.
+# O Makefile preenche esses argumentos automaticamente.
+#
+# Estes ARG ficam DEPOIS do pip install de propósito: um ARG declarado antes de
+# um RUN entra na chave de cache daquele RUN, então declará-los no topo faria
+# cada máquina com UID diferente reinstalar as bibliotecas do zero (~900 MB de
+# cache por UID). Aqui só a camada do useradd, que é de 65 kB, varia por máquina.
+ARG UID=1000
+ARG GID=1000
+ARG USUARIO=aluno
+
+# `getent` evita colisão quando o GID do host já existe na imagem (no macOS, por
+# exemplo, o GID costuma ser 20 — o `dialout` do Debian).
 RUN if ! getent group "${GID}" >/dev/null; then groupadd --gid "${GID}" "${USUARIO}"; fi \
  && useradd --uid "${UID}" --gid "${GID}" --create-home --shell /bin/bash "${USUARIO}" \
  && mkdir -p "/home/${USUARIO}/aulas" \
