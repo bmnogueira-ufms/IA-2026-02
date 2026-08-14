@@ -1,0 +1,36 @@
+# Ambiente das aulas práticas de IA — FACOM/UFMS
+#
+#   make up                  forma recomendada (passa UID/GID do host sozinho)
+#   docker compose up -d     forma direta, se você não tiver make
+#
+# Variáveis aceitas: PORTA (padrão 8888), HOST_UID e HOST_GID (padrão 1000).
+
+name: ia-2026-2
+
+services:
+  jupyter:
+    build:
+      context: .
+      args:
+        UID: ${HOST_UID:-1000}
+        GID: ${HOST_GID:-1000}
+    image: ia-2026-2:latest
+    container_name: ia-2026-2-jupyter
+    # Faz o PID 1 recolher processos zumbis e repassar Ctrl+C ao Jupyter.
+    init: true
+    ports:
+      # Publicado só no loopback: o JupyterLab não fica exposto na rede local.
+      # Trocar para "${PORTA:-8888}:8888" abriria o servidor SEM SENHA na rede.
+      - "127.0.0.1:${PORTA:-8888}:8888"
+    volumes:
+      # O repositório inteiro entra no container. O que você salva no navegador
+      # é gravado no seu disco — nada se perde quando o container é removido.
+      - .:/home/aluno/aulas
+      # Preferências do JupyterLab (tema, layout das abas) sobrevivem ao
+      # `make down`. São descartadas por `make clean`.
+      - jupyter-config:/home/aluno/.jupyter
+      - jupyter-data:/home/aluno/.local/share/jupyter
+
+volumes:
+  jupyter-config:
+  jupyter-data:

@@ -1,0 +1,5 @@
+# O contexto de build só precisa do requirements.txt: notebooks, bases de dados
+# e slides entram por bind mount (ver compose.yaml), não pela imagem. Ignorar o
+# resto deixa o build rápido e evita reconstruir a imagem a cada aula nova.
+*
+!requirements.txt

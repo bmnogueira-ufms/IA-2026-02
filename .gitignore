@@ -24,6 +24,10 @@ ENV/
 Thumbs.db
 desktop.ini
 
+# --- Docker ---
+# variáveis locais (PORTA, HOST_UID, HOST_GID) — o Makefile já cuida disso
+.env
+
 # --- Saídas temporárias ---
 *.log
 /tmp/

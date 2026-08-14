@@ -10,13 +10,15 @@ reais e publicamente disponíveis.
 
 ```
 IA-2026-2/
-├── Aulas Teóricas/          slides das aulas expositivas (PDF)
 ├── Aulas Práticas/          notebooks das aulas de laboratório
 │   └── aula01-introducao-am/
 │       ├── aula01-introducao-am.ipynb   aula guiada
 │       └── aula01-gabarito.ipynb        gabarito comentado dos exercícios
 ├── dados/                   bases de dados usadas nas aulas
 ├── requirements.txt         dependências Python
+├── Dockerfile               imagem com Python + JupyterLab
+├── compose.yaml             serviço do JupyterLab
+├── Makefile                 atalhos: make up, make down, make help
 └── README.md
 ```
 
@@ -32,10 +34,60 @@ Classificação e Regressão*).
 
 ## Como executar
 
+Há três caminhos. O **Docker** é o recomendado: dispensa instalar Python e garante que
+todos na turma usem exatamente as mesmas versões das bibliotecas.
+
+### Opção 1 — Docker (recomendado)
+
+Requer apenas o [Docker Desktop](https://www.docker.com/products/docker-desktop)
+instalado e aberto.
+
+```bash
+make          # constrói a imagem (só na primeira vez) e sobe o JupyterLab
+```
+
+Ao final, o próprio comando imprime o endereço: <http://localhost:8888/lab>.
+Não há senha nem token — o servidor é publicado apenas em `127.0.0.1`, ou seja, só a sua
+própria máquina o alcança.
+
+O repositório é montado dentro do container, então **os notebooks que você salva no
+navegador são gravados no seu disco** e entram no git normalmente. Nada se perde ao
+encerrar o container.
+
+| Comando | O que faz |
+|---|---|
+| `make` ou `make up` | sobe o JupyterLab e mostra o endereço |
+| `make abrir` | abre o JupyterLab no navegador |
+| `make down` | encerra o container |
+| `make logs` | mostra o log do servidor |
+| `make shell` | abre um terminal dentro do container |
+| `make check` | lista as versões das bibliotecas instaladas |
+| `make rebuild` | reconstrói a imagem (após mudar o `requirements.txt`) |
+| `make clean` | remove container, imagem e volumes |
+| `make help` | lista todos os comandos |
+
+Se a porta 8888 já estiver em uso: `make up PORTA=8899`.
+
+Sem `make` (Windows sem WSL, por exemplo), o equivalente é:
+
+```bash
+docker compose up -d --build     # sobe
+docker compose down              # encerra
+```
+
+Nesse caso, no Linux, defina `HOST_UID` e `HOST_GID` para que os arquivos salvos não
+fiquem com dono `root`:
+
+```bash
+HOST_UID=$(id -u) HOST_GID=$(id -g) docker compose up -d --build
+```
+
+### Opção 2 — ambiente virtual local
+
 Requer **Python 3.10 ou superior**.
 
 ```bash
-# 1. (recomendado) crie um ambiente virtual
+# 1. crie um ambiente virtual
 python3 -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
 
@@ -46,12 +98,16 @@ pip install -r requirements.txt
 jupyter lab                      # ou: jupyter notebook
 ```
 
-Alternativamente, use a distribuição [Anaconda](https://www.anaconda.com/download), que
-já traz todas as bibliotecas necessárias.
+### Opção 3 — Anaconda
 
-Os notebooks funcionam **sem conexão com a internet**: as bases de dados estão em
-`dados/`. Caso o arquivo local não seja encontrado, o notebook tenta baixá-lo
-automaticamente.
+A distribuição [Anaconda](https://www.anaconda.com/download) já traz todas as
+bibliotecas necessárias; basta abrir o Jupyter e navegar até os notebooks.
+
+---
+
+Em qualquer uma das opções, os notebooks funcionam **sem conexão com a internet**: as
+bases de dados estão em `dados/`. Caso o arquivo local não seja encontrado, o notebook
+tenta baixá-lo automaticamente.
 
 ### Executando no Google Colab
 
