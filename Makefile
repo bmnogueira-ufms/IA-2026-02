@@ -18,7 +18,8 @@ URL     := http://localhost:$(PORTA)/lab
 COMPOSE := HOST_UID=$(shell id -u) HOST_GID=$(shell id -g) PORTA=$(PORTA) docker compose
 
 .DEFAULT_GOAL := up
-.PHONY: up down stop restart build rebuild logs shell abrir status check clean guarda help
+.PHONY: up down stop restart build rebuild logs shell abrir status check clean \
+        colab colab-check guarda help
 
 up: guarda ## Sobe o JupyterLab (constrói a imagem na primeira vez)
 	@$(COMPOSE) up -d --build
@@ -80,6 +81,12 @@ print('matplotlib  ', matplotlib.__version__)"
 
 clean: ## Remove container, imagem e preferências do JupyterLab
 	@$(COMPOSE) down --volumes --rmi local
+
+colab: ## Atualiza os links "Abrir no Colab" (rode ao acrescentar uma aula)
+	@python3 ferramentas/colab.py
+
+colab-check: ## Verifica se os links do Colab estão atualizados
+	@python3 ferramentas/colab.py --check
 
 # Falha com uma mensagem legível quando o Docker não está instalado ou o daemon
 # não está rodando — em vez do erro cru do cliente.
