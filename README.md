@@ -32,6 +32,9 @@ Cada aula prática corresponde ao conteúdo teórico já visto em sala. A aula 0
 slides 2 (*Introdução*), 3 (*Introdução ao Aprendizado de Máquina*) e 7 (*Introdução à
 Classificação e Regressão*).
 
+Os slides das aulas teóricas não fazem parte deste repositório — eles são distribuídos
+pelo Moodle.
+
 ## Como executar
 
 Há três caminhos. O **Docker** é o recomendado: dispensa instalar Python e garante que
