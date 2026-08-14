@@ -1,4 +1,4 @@
-# Aulas práticas de Inteligência Artificial — FACOM/UFMS
+# Aulas práticas de Inteligência Artificial - FACOM/UFMS
 #
 #   make            sobe o JupyterLab e mostra o endereço
 #   make help       lista todos os comandos disponíveis
@@ -89,7 +89,7 @@ colab-check: ## Verifica se os links do Colab estão atualizados
 	@python3 ferramentas/colab.py --check
 
 # Falha com uma mensagem legível quando o Docker não está instalado ou o daemon
-# não está rodando — em vez do erro cru do cliente.
+# não está rodando - em vez do erro cru do cliente.
 guarda:
 	@command -v docker >/dev/null 2>&1 || { \
 	   echo 'Docker não encontrado. Instale o Docker Desktop: https://www.docker.com/products/docker-desktop'; \
@@ -99,7 +99,7 @@ guarda:
 	   exit 1; }
 
 help: ## Lista os comandos disponíveis
-	@echo 'Aulas práticas de IA — comandos disponíveis:'
+	@echo 'Aulas práticas de IA - comandos disponíveis:'
 	@echo
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) \
 	  | awk 'BEGIN {FS = ":[^#]*## "} {printf "  %-9s %s\n", $$1, $$2}'

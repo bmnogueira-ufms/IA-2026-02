@@ -1,4 +1,4 @@
-# Aulas práticas de Inteligência Artificial — FACOM/UFMS
+# Aulas práticas de Inteligência Artificial - FACOM/UFMS
 # Python >= 3.10
 #
 #   pip install -r requirements.txt

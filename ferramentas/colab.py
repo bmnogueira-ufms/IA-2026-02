@@ -7,7 +7,7 @@
 Ou, mais curto: `make colab` e `make colab-check`.
 
 O script descobre os notebooks pelo próprio git, então uma aula nova entra na
-lista sozinha: basta `git add` no notebook e rodar `make colab`. É idempotente —
+lista sozinha: basta `git add` no notebook e rodar `make colab`. É idempotente -
 rodar duas vezes não muda nada.
 
 Duas coisas acontecem:
@@ -63,7 +63,7 @@ def notebooks() -> list[str]:
 
     Vem do git (e não de um glob no disco) por dois motivos: notebook ignorado
     ou não adicionado ainda não entra na lista, e o caminho sai exatamente com
-    os bytes que o GitHub vai servir — o que importa em 'Aulas Práticas', com
+    os bytes que o GitHub vai servir - o que importa em 'Aulas Práticas', com
     espaço e acento no nome.
     """
     saida = git("ls-files", "-z", "--", "*.ipynb")
@@ -91,7 +91,7 @@ def rotulo(caminho: str) -> tuple[str, str]:
     """
     nome = Path(caminho).name
     m = re.search(r"aula(\d+)", caminho)
-    numero = m.group(1) if m else "—"
+    numero = m.group(1) if m else "-"
     tipo = "Gabarito" if "gabarito" in nome.lower() else "Aula guiada"
     return numero, tipo
 
@@ -101,8 +101,8 @@ def rotulo(caminho: str) -> tuple[str, str]:
 # --------------------------------------------------------------------------
 
 
-def celula_badge(repo: str, ramo: str, caminho: str) -> dict:
-    return {
+def celula_badge(repo: str, ramo: str, caminho: str, com_id: bool) -> dict:
+    celula = {
         "cell_type": "markdown",
         "metadata": {},
         "source": [
@@ -110,6 +110,11 @@ def celula_badge(repo: str, ramo: str, caminho: str) -> dict:
             badge(repo, ramo, caminho, "Abrir no Google Colab"),
         ],
     }
+    if com_id:
+        # A partir do nbformat 4.5 toda célula precisa de id; sem ele o Jupyter
+        # avisa a cada leitura do notebook.
+        celula["id"] = "colab-badge"
+    return celula
 
 
 def atualiza_notebook(caminho: str, repo: str, ramo: str, escrever: bool) -> bool:
@@ -118,12 +123,13 @@ def atualiza_notebook(caminho: str, repo: str, ramo: str, escrever: bool) -> boo
     original = arquivo.read_text(encoding="utf-8")
     nb = json.loads(original)
 
-    nova = celula_badge(repo, ramo, caminho)
+    com_id = (nb.get("nbformat", 4), nb.get("nbformat_minor", 0)) >= (4, 5)
+    nova = celula_badge(repo, ramo, caminho, com_id)
     celulas = nb.get("cells", [])
     primeira = "".join(celulas[0]["source"]) if celulas else ""
 
     if primeira.startswith(MARCA):
-        if celulas[0].get("source") == nova["source"]:
+        if celulas[0] == nova:
             return False
         celulas[0] = nova
     else:
@@ -145,7 +151,7 @@ def atualiza_notebook(caminho: str, repo: str, ramo: str, escrever: bool) -> boo
 
 def tabela(repo: str, ramo: str, caminhos: list[str]) -> str:
     linhas = [
-        f"{INICIO} — gerado por ferramentas/colab.py; não edite à mão -->",
+        f"{INICIO} - gerado por ferramentas/colab.py; não edite à mão -->",
         "",
         "| Aula | Notebook | Abrir no Colab |",
         "|---|---|---|",

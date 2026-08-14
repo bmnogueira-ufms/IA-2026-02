@@ -1,8 +1,8 @@
-# Inteligência Artificial — 2026/2
+# Inteligência Artificial - 2026/2
 
 [![Abrir no Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/bmnogueira-ufms/IA-2026-02)
 
-Materiais da disciplina de **Inteligência Artificial** da graduação — FACOM/UFMS.
+Materiais da disciplina de **Inteligência Artificial** da graduação - FACOM/UFMS.
 Prof. Bruno Nogueira.
 
 As aulas práticas são em **Python**, com **Jupyter Notebook**, e usam bases de dados
@@ -36,7 +36,7 @@ Cada aula prática corresponde ao conteúdo teórico já visto em sala. A aula 0
 slides 2 (*Introdução*), 3 (*Introdução ao Aprendizado de Máquina*) e 7 (*Introdução à
 Classificação e Regressão*).
 
-Os slides das aulas teóricas não fazem parte deste repositório — eles são distribuídos
+Os slides das aulas teóricas não fazem parte deste repositório - eles são distribuídos
 pelo Moodle.
 
 ### Abrir os notebooks no Google Colab
@@ -44,7 +44,7 @@ pelo Moodle.
 Um clique, sem instalar nada. O badge do topo abre a lista completa; os links abaixo
 abrem cada notebook direto:
 
-<!-- COLAB:INICIO — gerado por ferramentas/colab.py; não edite à mão -->
+<!-- COLAB:INICIO - gerado por ferramentas/colab.py; não edite à mão -->
 
 | Aula | Notebook | Abrir no Colab |
 |---|---|---|
@@ -55,7 +55,7 @@ abrem cada notebook direto:
 
 As bases de dados são baixadas automaticamente quando o notebook roda no Colab, então
 não é preciso clonar o repositório. A tabela acima é gerada por
-`ferramentas/colab.py` — ao acrescentar uma aula, rode `make colab`.
+`ferramentas/colab.py` - ao acrescentar uma aula, rode `make colab`.
 
 ## Como executar
 
@@ -63,7 +63,7 @@ Há quatro caminhos. O **Docker** é o recomendado para trabalhar na própria m�
 dispensa instalar Python e garante que todos na turma usem exatamente as mesmas versões
 das bibliotecas. Para só abrir e rodar, o **Colab** é o mais rápido.
 
-### Opção 1 — Docker (recomendado)
+### Opção 1 - Docker (recomendado)
 
 Requer apenas o [Docker Desktop](https://www.docker.com/products/docker-desktop)
 instalado e aberto.
@@ -73,7 +73,7 @@ make          # constrói a imagem (só na primeira vez) e sobe o JupyterLab
 ```
 
 Ao final, o próprio comando imprime o endereço: <http://localhost:8888/lab>.
-Não há senha nem token — o servidor é publicado apenas em `127.0.0.1`, ou seja, só a sua
+Não há senha nem token - o servidor é publicado apenas em `127.0.0.1`, ou seja, só a sua
 própria máquina o alcança.
 
 O repositório é montado dentro do container, então **os notebooks que você salva no
@@ -108,7 +108,7 @@ fiquem com dono `root`:
 HOST_UID=$(id -u) HOST_GID=$(id -g) docker compose up -d --build
 ```
 
-### Opção 2 — ambiente virtual local
+### Opção 2 - ambiente virtual local
 
 Requer **Python 3.10 ou superior**.
 
@@ -124,12 +124,12 @@ pip install -r requirements.txt
 jupyter lab                      # ou: jupyter notebook
 ```
 
-### Opção 3 — Anaconda
+### Opção 3 - Anaconda
 
 A distribuição [Anaconda](https://www.anaconda.com/download) já traz todas as
 bibliotecas necessárias; basta abrir o Jupyter e navegar até os notebooks.
 
-### Opção 4 — Google Colab
+### Opção 4 - Google Colab
 
 Sem instalar nada: use os links da seção
 [Abrir os notebooks no Google Colab](#abrir-os-notebooks-no-google-colab).
@@ -137,8 +137,8 @@ Sem instalar nada: use os links da seção
 ---
 
 Em qualquer uma das opções, os notebooks funcionam **sem conexão com a internet**: as
-bases de dados estão em `dados/`. Caso o arquivo local não seja encontrado — o que é o
-caso no Colab —, o notebook baixa a base automaticamente.
+bases de dados estão em `dados/`. Caso o arquivo local não seja encontrado - o que é o
+caso no Colab -, o notebook baixa a base automaticamente.
 
 ## Bibliografia
 
@@ -149,6 +149,6 @@ caso no Colab —, o notebook baixa a base automaticamente.
 
 ## Contato
 
-Prof. Bruno Nogueira — bruno.nogueira@ufms.br
-Atendimento: quartas, 17h30–18h30, FACOM sala 10 (agendamento por e-mail).
+Prof. Bruno Nogueira - bruno.nogueira@ufms.br
+Atendimento: quartas, 17h30-18h30, FACOM sala 10 (agendamento por e-mail).
 Comunicação e material de apoio também no Moodle: [ava.ufms.br](https://ava.ufms.br).

@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 #
-# Ambiente das aulas práticas de Inteligência Artificial — FACOM/UFMS
+# Ambiente das aulas práticas de Inteligência Artificial - FACOM/UFMS
 #
 # A imagem traz Python + as bibliotecas de requirements.txt + JupyterLab.
 # Os notebooks e as bases de dados NÃO são copiados para dentro da imagem:
@@ -39,7 +39,7 @@ ARG GID=1000
 ARG USUARIO=aluno
 
 # `getent` evita colisão quando o GID do host já existe na imagem (no macOS, por
-# exemplo, o GID costuma ser 20 — o `dialout` do Debian).
+# exemplo, o GID costuma ser 20 - o `dialout` do Debian).
 RUN if ! getent group "${GID}" >/dev/null; then groupadd --gid "${GID}" "${USUARIO}"; fi \
  && useradd --uid "${UID}" --gid "${GID}" --create-home --shell /bin/bash "${USUARIO}" \
  && mkdir -p "/home/${USUARIO}/aulas" \
@@ -58,7 +58,7 @@ HEALTHCHECK --interval=10s --timeout=5s --start-period=15s --retries=6 \
 
 # Sem token e sem senha, de propósito: a porta é publicada apenas em 127.0.0.1
 # (ver compose.yaml), então o servidor só é alcançável da própria máquina. Isso
-# elimina a fricção de copiar a URL com token do log — o que importa em sala.
+# elimina a fricção de copiar a URL com token do log - o que importa em sala.
 # Para exigir token, defina JUPYTER_TOKEN no compose e remova a linha do token.
 #
 # O root_dir do JupyterLab é o WORKDIR acima, ou seja, a raiz do repositório.

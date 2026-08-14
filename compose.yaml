@@ -1,4 +1,4 @@
-# Ambiente das aulas práticas de IA — FACOM/UFMS
+# Ambiente das aulas práticas de IA - FACOM/UFMS
 #
 #   make up                  forma recomendada (passa UID/GID do host sozinho)
 #   docker compose up -d     forma direta, se você não tiver make
@@ -24,7 +24,7 @@ services:
       - "127.0.0.1:${PORTA:-8888}:8888"
     volumes:
       # O repositório inteiro entra no container. O que você salva no navegador
-      # é gravado no seu disco — nada se perde quando o container é removido.
+      # é gravado no seu disco - nada se perde quando o container é removido.
       - .:/home/aluno/aulas
       # Preferências do JupyterLab (tema, layout das abas) sobrevivem ao
       # `make down`. São descartadas por `make clean`.
