@@ -59,6 +59,108 @@ arterial coronariana.
 
 ---
 
+## `auto-mpg.csv` - Auto MPG (consumo de combustível)
+
+**Usada em:** Aula 02.
+
+Dados de **398 automóveis** vendidos nos Estados Unidos entre 1970 e 1982. A tarefa é
+prever o consumo de combustível a partir de características mecânicas do veículo - um
+problema de **regressão**.
+
+- **Fonte original:** UCI Machine Learning Repository -
+  [Auto MPG Data Set](https://archive.ics.uci.edu/dataset/9/auto+mpg). A base vem do
+  StatLib da Carnegie Mellon University e foi usada na Exposição da American Statistical
+  Association de 1983.
+- **Referência:** QUINLAN, R. Combining instance-based and model-based learning. In:
+  *Proceedings of the Tenth International Conference on Machine Learning*, p. 236-243,
+  1993.
+- **Versão utilizada:** a distribuída com o pacote *seaborn*, que já tem os nomes de
+  coluna limpos e mantém os valores ausentes originais.
+  Espelho: <https://raw.githubusercontent.com/mwaskom/seaborn-data/master/mpg.csv>
+
+### Colunas (nomes originais → nomes usados na aula)
+
+| Original | Aula | Descrição |
+|---|---|---|
+| `mpg` | `consumo_mpg` | **alvo**: consumo em *miles per gallon* |
+| `cylinders` | `cilindros` | número de cilindros (3, 4, 5, 6, 8) |
+| `displacement` | `cilindrada` | cilindrada em polegadas cúbicas |
+| `horsepower` | `potencia` | potência em cavalos |
+| `weight` | `peso_lb` | peso em libras |
+| `acceleration` | `aceleracao` | tempo de 0 a 60 mph, em segundos |
+| `model_year` | `ano` | ano do modelo (70-82) |
+| `origin` | `origem` | `usa`, `japan`, `europe` |
+| `name` | `modelo` | nome do modelo |
+
+A aula acrescenta duas colunas convertidas para unidades usadas no Brasil:
+`peso_kg` = `peso_lb` × 0,45359237 e `consumo_kml` = `consumo_mpg` × 0,4251437.
+
+### Observações importantes para a aula
+
+- Há **6 valores ausentes** em `horsepower`. Preservados de propósito: aparecem no
+  exercício 3, em que cada atributo é usado isoladamente e o `dropna()` muda o `n`.
+- A relação entre peso e `consumo_kml` é **negativa mas curva** ($R^2 \approx 0{,}69$
+  para uma reta). Trocando o alvo para litros por 100 km - que é proporcional ao gasto,
+  e não ao seu inverso - a mesma reta chega a $R^2 \approx 0{,}78$. A aula usa isso para
+  discutir análise de resíduos e escolha do espaço de hipóteses.
+- `aceleracao` é o atributo isolado mais fraco ($R^2 \approx 0{,}18$); `ano` tem
+  coeficiente **positivo**, refletindo o ganho de eficiência dos motores na década.
+
+---
+
+## `ames-housing.csv` - Ames Housing (preço de imóveis)
+
+**Usada em:** Aula 02.
+
+**2.930 casas** vendidas em Ames, Iowa, entre 2006 e 2010. É a base que substituiu a
+antiga *Boston Housing* no ensino de regressão (a de Boston foi retirada do
+scikit-learn por conter um atributo de conteúdo racista). Reproduz o exemplo dos slides:
+**tamanho da casa × preço**.
+
+- **Referência:** DE COCK, D. Ames, Iowa: alternative to the Boston housing data as an
+  end of semester regression project. *Journal of Statistics Education*, v. 19, n. 3,
+  2011. <https://doi.org/10.1080/10691898.2011.11889627>
+- **Versão utilizada:** o arquivo original tem 82 colunas; aqui estão guardadas **18**,
+  escolhidas por serem as úteis para regressão nas próximas aulas.
+  Espelho da versão completa:
+  <https://raw.githubusercontent.com/rasbt/machine-learning-book/main/ch09/AmesHousing.txt>
+
+### Colunas guardadas
+
+| Coluna | Descrição |
+|---|---|
+| `Gr Liv Area` | área construída acima do solo, em pés² (na aula: `area_m2`, × 0,09290304) |
+| `Lot Area` | área do terreno, em pés² |
+| `Total Bsmt SF` | área do porão, em pés² |
+| `Overall Qual` | qualidade geral do acabamento (1 a 10) |
+| `Overall Cond` | estado de conservação (1 a 10) |
+| `Year Built` | ano de construção |
+| `Year Remod/Add` | ano da última reforma |
+| `Bedroom AbvGr` | quartos acima do solo |
+| `Full Bath` / `Half Bath` | banheiros completos / lavabos |
+| `TotRms AbvGrd` | total de peças acima do solo |
+| `Fireplaces` | lareiras |
+| `Garage Cars` / `Garage Area` | vagas de garagem / área da garagem |
+| `Neighborhood` | bairro (28 categorias) |
+| `Central Air` | ar-condicionado central (`Y`/`N`) |
+| `Sale Condition` | condição da venda (`Normal`, `Partial`, `Abnorml`, ...) |
+| `SalePrice` | **alvo**: preço de venda em dólares (na aula: `preco_mil`, ÷ 1000) |
+
+### Observações importantes para a aula
+
+- Área construída explica apenas **metade** da variação do preço
+  ($R^2 \approx 0{,}50$) - é justamente o gancho para a regressão multivariada.
+- Há **valores ausentes** em `Garage Cars`, `Garage Area` e `Total Bsmt SF` (1 ou 2
+  casos cada). As duas colunas usadas na aula 02 (`Gr Liv Area` e `SalePrice`) estão
+  completas.
+- ⚠️ `Sale Condition` merece atenção: as vendas `Partial` (casas ainda em construção) e
+  `Abnorml` (execuções, vendas entre familiares) são as responsáveis pelos pontos
+  esquisitos do gráfico - casas grandes vendidas barato. Filtrar por
+  `Sale Condition == "Normal"` eleva a correlação de 0,71 para 0,74. A aula 02 **não**
+  filtra, de propósito, para que os pontos apareçam e possam ser discutidos.
+
+---
+
 ## Iris
 
 **Usada em:** Aula 01.

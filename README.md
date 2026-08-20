@@ -13,9 +13,12 @@ reais e publicamente disponíveis.
 ```
 IA-2026-2/
 ├── Aulas Práticas/          notebooks das aulas de laboratório
-│   └── aula01-introducao-am/
-│       ├── aula01-introducao-am.ipynb   aula guiada
-│       └── aula01-gabarito.ipynb        gabarito comentado dos exercícios
+│   ├── aula01-introducao-am/
+│   │   ├── aula01-introducao-am.ipynb   aula guiada
+│   │   └── aula01-gabarito.ipynb        gabarito comentado dos exercícios
+│   └── aula02-regressao-linear/
+│       ├── aula02-regressao-linear.ipynb  aula guiada (com lacunas para implementar)
+│       └── aula02-gabarito.ipynb          a mesma aula, já implementada e executada
 ├── dados/                   bases de dados usadas nas aulas
 ├── ferramentas/
 │   └── colab.py             gera os links "Abrir no Colab" (make colab)
@@ -31,10 +34,20 @@ IA-2026-2/
 | # | Aula | Conteúdo | Bases usadas |
 |---|------|----------|--------------|
 | 01 | [Introdução ao Aprendizado de Máquina](Aulas%20Práticas/aula01-introducao-am/) | definição de Mitchell (T, P, E); aprendizado indutivo e Navalha de Ockham; *overfitting*; paradigmas supervisionado / não supervisionado / semissupervisionado; separabilidade linear e fronteiras de decisão; árvores de decisão; matriz de confusão e métricas; *holdout* e *k-fold cross validation*; micro e macro averaging | Iris, Heart Disease (Cleveland) |
+| 02 | [Regressão Linear](Aulas%20Práticas/aula02-regressao-linear/) | tarefa de regressão; hipótese $h(x) = \theta_0 + \theta_1 x$; função de custo dos mínimos quadrados; curva e superfície de $J$; derivadas parciais e gradiente descendente com atualização simultânea; taxa de aprendizado; normalização (*min-max* e escore $z$); solução fechada e comparação com o scikit-learn; análise de resíduos | Auto MPG, Ames Housing |
 
 Cada aula prática corresponde ao conteúdo teórico já visto em sala. A aula 01 cobre os
 slides 2 (*Introdução*), 3 (*Introdução ao Aprendizado de Máquina*) e 7 (*Introdução à
-Classificação e Regressão*).
+Classificação e Regressão*); a aula 02 cobre os slides 8 (*Regressão Linear*), na parte
+de uma única variável.
+
+### A aula 02 é para ser preenchida
+
+A partir da aula 02 os algoritmos deixam de ser caixas-pretas: o notebook da aula guiada
+tem **lacunas de propósito**, marcadas com 🔨 IMPLEMENTE, para serem escritas durante o
+laboratório - por isso ele é distribuído **sem saídas**. Cada lacuna vem com uma célula
+de verificação que imprime `OK` quando a implementação está correta. O
+`aula02-gabarito.ipynb` é a mesma aula com tudo implementado, comentado e executado.
 
 Os slides das aulas teóricas não fazem parte deste repositório - eles são distribuídos
 pelo Moodle.
@@ -50,6 +63,8 @@ abrem cada notebook direto:
 |---|---|---|
 | 01 | Aula guiada | [![Abrir no Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/bmnogueira-ufms/IA-2026-02/blob/main/Aulas%20Pr%C3%A1ticas/aula01-introducao-am/aula01-introducao-am.ipynb) |
 | 01 | Gabarito | [![Abrir no Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/bmnogueira-ufms/IA-2026-02/blob/main/Aulas%20Pr%C3%A1ticas/aula01-introducao-am/aula01-gabarito.ipynb) |
+| 02 | Aula guiada | [![Abrir no Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/bmnogueira-ufms/IA-2026-02/blob/main/Aulas%20Pr%C3%A1ticas/aula02-regressao-linear/aula02-regressao-linear.ipynb) |
+| 02 | Gabarito | [![Abrir no Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/bmnogueira-ufms/IA-2026-02/blob/main/Aulas%20Pr%C3%A1ticas/aula02-regressao-linear/aula02-gabarito.ipynb) |
 
 <!-- COLAB:FIM -->
 
@@ -146,6 +161,8 @@ caso no Colab -, o notebook baixa a base automaticamente.
 - RUSSELL, S.; NORVIG, P. *Artificial Intelligence: A Modern Approach*. 3. ed. Prentice Hall, 2009.
 - BISHOP, C. *Pattern Recognition and Machine Learning*. Springer, 2006.
 - JAMES, G. et al. *An Introduction to Statistical Learning*. Springer, 2013.
+- HASTIE, T.; TIBSHIRANI, R.; FRIEDMAN, J. *The Elements of Statistical Learning*. 2. ed. Springer, 2009.
+- NG, A. *Machine Learning* - notas de aula (Stanford CS229).
 
 ## Contato
 
