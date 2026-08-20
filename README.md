@@ -18,7 +18,8 @@ IA-2026-2/
 │   │   └── aula01-gabarito.ipynb        gabarito comentado dos exercícios
 │   └── aula02-regressao-linear/
 │       ├── aula02-regressao-linear.ipynb  aula guiada (com lacunas para implementar)
-│       └── aula02-gabarito.ipynb          a mesma aula, já implementada e executada
+│       ├── aula02-gabarito.ipynb          a mesma aula, já implementada e executada
+│       └── aula02-sklearn.ipynb           a mesma regressão, agora com o scikit-learn
 ├── dados/                   bases de dados usadas nas aulas
 ├── ferramentas/
 │   └── colab.py             gera os links "Abrir no Colab" (make colab)
@@ -34,7 +35,7 @@ IA-2026-2/
 | # | Aula | Conteúdo | Bases usadas |
 |---|------|----------|--------------|
 | 01 | [Introdução ao Aprendizado de Máquina](Aulas%20Práticas/aula01-introducao-am/) | definição de Mitchell (T, P, E); aprendizado indutivo e Navalha de Ockham; *overfitting*; paradigmas supervisionado / não supervisionado / semissupervisionado; separabilidade linear e fronteiras de decisão; árvores de decisão; matriz de confusão e métricas; *holdout* e *k-fold cross validation*; micro e macro averaging | Iris, Heart Disease (Cleveland) |
-| 02 | [Regressão Linear](Aulas%20Práticas/aula02-regressao-linear/) | tarefa de regressão; hipótese $h(x) = \theta_0 + \theta_1 x$; função de custo dos mínimos quadrados; curva e superfície de $J$; derivadas parciais e gradiente descendente com atualização simultânea; taxa de aprendizado; normalização (*min-max* e escore $z$); solução fechada e comparação com o scikit-learn; análise de resíduos | Auto MPG, Ames Housing |
+| 02 | [Regressão Linear](Aulas%20Práticas/aula02-regressao-linear/) | tarefa de regressão; hipótese $h(x) = \theta_0 + \theta_1 x$; função de custo dos mínimos quadrados; curva e superfície de $J$; derivadas parciais e gradiente descendente com atualização simultânea; taxa de aprendizado; normalização (*min-max* e escore $z$); solução fechada e comparação com o scikit-learn; análise de resíduos. Notebook extra: a mesma regressão com o scikit-learn (`LinearRegression`, `StandardScaler`, `Pipeline`, validação cruzada, `DummyRegressor`, `SGDRegressor`) | Auto MPG, Ames Housing |
 
 Cada aula prática corresponde ao conteúdo teórico já visto em sala. A aula 01 cobre os
 slides 2 (*Introdução*), 3 (*Introdução ao Aprendizado de Máquina*) e 7 (*Introdução à
@@ -48,6 +49,12 @@ tem **lacunas de propósito**, marcadas com 🔨 IMPLEMENTE, para serem escritas
 laboratório - por isso ele é distribuído **sem saídas**. Cada lacuna vem com uma célula
 de verificação que imprime `OK` quando a implementação está correta. O
 `aula02-gabarito.ipynb` é a mesma aula com tudo implementado, comentado e executado.
+
+O terceiro notebook, `aula02-sklearn.ipynb`, refaz a **mesma** regressão na **mesma**
+base usando o scikit-learn, e mostra onde cada função escrita à mão foi parar dentro da
+biblioteca (`LinearRegression`, `StandardScaler`, `Pipeline`, `SGDRegressor`). Ele vem
+completo e executado, e serve de referência para o resto do semestre: daqui em diante
+todo modelo da disciplina segue a mesma interface `fit` / `predict` / `score`.
 
 Os slides das aulas teóricas não fazem parte deste repositório - eles são distribuídos
 pelo Moodle.
@@ -65,6 +72,7 @@ abrem cada notebook direto:
 | 01 | Gabarito | [![Abrir no Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/bmnogueira-ufms/IA-2026-02/blob/main/Aulas%20Pr%C3%A1ticas/aula01-introducao-am/aula01-gabarito.ipynb) |
 | 02 | Aula guiada | [![Abrir no Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/bmnogueira-ufms/IA-2026-02/blob/main/Aulas%20Pr%C3%A1ticas/aula02-regressao-linear/aula02-regressao-linear.ipynb) |
 | 02 | Gabarito | [![Abrir no Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/bmnogueira-ufms/IA-2026-02/blob/main/Aulas%20Pr%C3%A1ticas/aula02-regressao-linear/aula02-gabarito.ipynb) |
+| 02 | Com o scikit-learn | [![Abrir no Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/bmnogueira-ufms/IA-2026-02/blob/main/Aulas%20Pr%C3%A1ticas/aula02-regressao-linear/aula02-sklearn.ipynb) |
 
 <!-- COLAB:FIM -->
 

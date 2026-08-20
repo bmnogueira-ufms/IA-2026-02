@@ -41,6 +41,15 @@ COLAB_GITHUB = "https://colab.research.google.com/github"
 MARCA = "<!-- colab-badge -->"
 INICIO, FIM = "<!-- COLAB:INICIO", "<!-- COLAB:FIM -->"
 
+# Como o nome do arquivo revela o papel do notebook. A ordem desta lista é a de
+# busca (o primeiro sufixo que casar vence); quem não casa é "Aula guiada".
+SUFIXOS = [
+    ("gabarito", "Gabarito"),
+    ("sklearn", "Com o scikit-learn"),
+]
+# Ordem em que os notebooks de uma mesma aula aparecem na tabela.
+ORDEM = {"Aula guiada": 0, "Gabarito": 1, "Com o scikit-learn": 2}
+
 
 def git(*args: str) -> str:
     """Roda um comando git na raiz do repositório e devolve a saída."""
@@ -67,11 +76,11 @@ def notebooks() -> list[str]:
     espaço e acento no nome.
     """
     saida = git("ls-files", "-z", "--", "*.ipynb")
-    # Ordem didática: aula 01 antes da 02 e, dentro da aula, a aula guiada antes
-    # do gabarito (a ordem alfabética faria o contrário, porque 'g' vem antes).
-    def chave(caminho: str) -> tuple[str, bool, str]:
+    # Ordem didática: aula 01 antes da 02 e, dentro da aula, a ordem em que os
+    # notebooks são usados - a alfabética faria o contrário, porque 'g' vem antes.
+    def chave(caminho: str) -> tuple[str, int, str]:
         numero, tipo = rotulo(caminho)
-        return (numero, tipo == "Gabarito", caminho)
+        return (numero, ORDEM.get(tipo, 99), caminho)
 
     return sorted((p for p in saida.split("\0") if p), key=chave)
 
@@ -89,11 +98,13 @@ def rotulo(caminho: str) -> tuple[str, str]:
 
     'Aulas Práticas/aula01-introducao-am/aula01-gabarito.ipynb' → ('01', 'Gabarito')
     """
-    nome = Path(caminho).name
+    nome = Path(caminho).name.lower()
     m = re.search(r"aula(\d+)", caminho)
     numero = m.group(1) if m else "-"
-    tipo = "Gabarito" if "gabarito" in nome.lower() else "Aula guiada"
-    return numero, tipo
+    for marca, tipo in SUFIXOS:
+        if marca in nome:
+            return numero, tipo
+    return numero, "Aula guiada"
 
 
 # --------------------------------------------------------------------------
