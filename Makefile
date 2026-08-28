@@ -19,7 +19,7 @@ COMPOSE := HOST_UID=$(shell id -u) HOST_GID=$(shell id -g) PORTA=$(PORTA) docker
 
 .DEFAULT_GOAL := up
 .PHONY: up down stop restart build rebuild logs shell abrir status check clean \
-        colab colab-check guarda help
+        colab colab-check aula guarda help
 
 up: guarda ## Sobe o JupyterLab (constrói a imagem na primeira vez)
 	@$(COMPOSE) up -d --build
@@ -81,6 +81,14 @@ print('matplotlib  ', matplotlib.__version__)"
 
 clean: ## Remove container, imagem e preferências do JupyterLab
 	@$(COMPOSE) down --volumes --rmi local
+
+aula: ## Gera aula + gabarito da fonte .py (use FONTE=... e TITULO=...)
+	@test -n '$(FONTE)' || { \
+	   echo 'Informe a fonte. Exemplo:'; \
+	   echo '  make aula FONTE="Aulas Práticas/aula03-regressao-logistica/aula03.py" \'; \
+	   echo '            TITULO="Aula Prática 03 - Regressão Logística"'; \
+	   exit 1; }
+	@python3 ferramentas/aulas.py '$(FONTE)' $(if $(TITULO),--titulo '$(TITULO)',)
 
 colab: ## Atualiza os links "Abrir no Colab" (rode ao acrescentar uma aula)
 	@python3 ferramentas/colab.py

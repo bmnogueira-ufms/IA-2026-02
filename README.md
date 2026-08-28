@@ -16,13 +16,18 @@ IA-2026-2/
 │   ├── aula01-introducao-am/
 │   │   ├── aula01-introducao-am.ipynb   aula guiada
 │   │   └── aula01-gabarito.ipynb        gabarito comentado dos exercícios
-│   └── aula02-regressao-linear/
-│       ├── aula02-regressao-linear.ipynb  aula guiada (com lacunas para implementar)
-│       ├── aula02-gabarito.ipynb          a mesma aula, já implementada e executada
-│       └── aula02-sklearn.ipynb           a mesma regressão, agora com o scikit-learn
+│   ├── aula02-regressao-linear/
+│   │   ├── aula02-regressao-linear.ipynb  aula guiada (com lacunas para implementar)
+│   │   ├── aula02-gabarito.ipynb          a mesma aula, já implementada e executada
+│   │   └── aula02-sklearn.ipynb           a mesma regressão, agora com o scikit-learn
+│   └── aula03-regressao-logistica/
+│       ├── aula03.py                      FONTE única (jupytext) dos dois notebooks
+│       ├── aula03-regressao-logistica.ipynb  aula guiada
+│       └── aula03-gabarito.ipynb          a mesma aula, resolvida e executada
 ├── dados/                   bases de dados usadas nas aulas
 ├── ferramentas/
-│   └── colab.py             gera os links "Abrir no Colab" (make colab)
+│   ├── colab.py             gera os links "Abrir no Colab" (make colab)
+│   └── aulas.py             gera aula + gabarito a partir da fonte .py (make aula)
 ├── requirements.txt         dependências Python
 ├── Dockerfile               imagem com Python + JupyterLab
 ├── compose.yaml             serviço do JupyterLab
@@ -36,13 +41,15 @@ IA-2026-2/
 |---|------|----------|--------------|
 | 01 | [Introdução ao Aprendizado de Máquina](Aulas%20Práticas/aula01-introducao-am/) | definição de Mitchell (T, P, E); aprendizado indutivo e Navalha de Ockham; *overfitting*; paradigmas supervisionado / não supervisionado / semissupervisionado; separabilidade linear e fronteiras de decisão; árvores de decisão; matriz de confusão e métricas; *holdout* e *k-fold cross validation*; micro e macro averaging | Iris, Heart Disease (Cleveland) |
 | 02 | [Regressão Linear](Aulas%20Práticas/aula02-regressao-linear/) | tarefa de regressão; hipótese $h(x) = \theta_0 + \theta_1 x$; função de custo dos mínimos quadrados; curva e superfície de $J$; derivadas parciais e gradiente descendente com atualização simultânea; taxa de aprendizado; normalização (*min-max* e escore $z$); solução fechada e comparação com o scikit-learn; análise de resíduos. Notebook extra: a mesma regressão com o scikit-learn (`LinearRegression`, `StandardScaler`, `Pipeline`, validação cruzada, `DummyRegressor`, `SGDRegressor`) | Auto MPG, Ames Housing |
+| 03 | [Regressão Logística](Aulas%20Práticas/aula03-regressao-logistica/) | por que a regressão linear com limiar falha em classificação; função logística $g(z) = 1/(1+e^{-z})$; hipótese $h(x) = g(\theta^T x)$ lida como probabilidade; **fronteira de decisão** $\theta^T x = 0$ em 1 e 2 dimensões; fronteiras não lineares com termos polinomiais; *overfitting*, *bias-variância* e Navalha de Ockham; escolha do limiar (precisão × revocação); regressão logística multinomial | Palmer Penguins, Heart Disease (Cleveland), dados sintéticos |
 
 Cada aula prática corresponde ao conteúdo teórico já visto em sala. A aula 01 cobre os
 slides 2 (*Introdução*), 3 (*Introdução ao Aprendizado de Máquina*) e 7 (*Introdução à
 Classificação e Regressão*); a aula 02 cobre os slides 8 (*Regressão Linear*), na parte
-de uma única variável.
+de uma única variável; a aula 03 cobre os slides 9 (*Regressão Logística*), com exceção
+da função de custo e do gradiente descendente, que ficam para a aula seguinte.
 
-### A aula 02 é para ser preenchida
+### As aulas são para ser preenchidas
 
 A partir da aula 02 os algoritmos deixam de ser caixas-pretas: o notebook da aula guiada
 tem **lacunas de propósito**, marcadas com 🔨 IMPLEMENTE, para serem escritas durante o
@@ -50,7 +57,19 @@ laboratório - por isso ele é distribuído **sem saídas**. Cada lacuna vem com
 de verificação que imprime `OK` quando a implementação está correta. O
 `aula02-gabarito.ipynb` é a mesma aula com tudo implementado, comentado e executado.
 
-O terceiro notebook, `aula02-sklearn.ipynb`, refaz a **mesma** regressão na **mesma**
+### Uma fonte, dois notebooks
+
+A partir da aula 03, aula e gabarito são recortados de um **único arquivo**
+(`aulaNN.py`, no formato jupytext `py:percent`), para que os dois nunca divirjam:
+
+```bash
+make aula FONTE="Aulas Práticas/aula03-regressao-logistica/aula03.py" \
+          TITULO="Aula Prática 03 - Regressão Logística"
+```
+
+O script recorta a versão do aluno e a do professor, e executa o gabarito.
+
+O terceiro notebook da aula 02, `aula02-sklearn.ipynb`, refaz a **mesma** regressão na **mesma**
 base usando o scikit-learn, e mostra onde cada função escrita à mão foi parar dentro da
 biblioteca (`LinearRegression`, `StandardScaler`, `Pipeline`, `SGDRegressor`). Ele vem
 completo e executado, e serve de referência para o resto do semestre: daqui em diante
@@ -73,6 +92,8 @@ abrem cada notebook direto:
 | 02 | Aula guiada | [![Abrir no Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/bmnogueira-ufms/IA-2026-02/blob/main/Aulas%20Pr%C3%A1ticas/aula02-regressao-linear/aula02-regressao-linear.ipynb) |
 | 02 | Gabarito | [![Abrir no Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/bmnogueira-ufms/IA-2026-02/blob/main/Aulas%20Pr%C3%A1ticas/aula02-regressao-linear/aula02-gabarito.ipynb) |
 | 02 | Com o scikit-learn | [![Abrir no Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/bmnogueira-ufms/IA-2026-02/blob/main/Aulas%20Pr%C3%A1ticas/aula02-regressao-linear/aula02-sklearn.ipynb) |
+| 03 | Aula guiada | [![Abrir no Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/bmnogueira-ufms/IA-2026-02/blob/main/Aulas%20Pr%C3%A1ticas/aula03-regressao-logistica/aula03-regressao-logistica.ipynb) |
+| 03 | Gabarito | [![Abrir no Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/bmnogueira-ufms/IA-2026-02/blob/main/Aulas%20Pr%C3%A1ticas/aula03-regressao-logistica/aula03-gabarito.ipynb) |
 
 <!-- COLAB:FIM -->
 

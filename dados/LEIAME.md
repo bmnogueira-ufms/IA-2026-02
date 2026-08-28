@@ -7,7 +7,7 @@ pesquisa.
 
 ## `heart-cleveland.csv` - Heart Disease (Cleveland Clinic)
 
-**Usada em:** Aula 01.
+**Usada em:** Aulas 01 e 03.
 
 Dados de **303 pacientes** submetidos a angiografia coronariana na Cleveland Clinic
 Foundation, descritos por 13 atributos clínicos. A tarefa é prever a presença de doença
@@ -56,6 +56,56 @@ arterial coronariana.
   `target = 1` corresponde a pacientes **sem** doença. Se for usar aquela versão, confira
   a semântica do rótulo antes - por exemplo, verificando se o grupo `target = 1` é o mais
   jovem e com maior frequência cardíaca máxima.
+
+---
+
+## `penguins.csv` - Palmer Penguins (três espécies de pinguim)
+
+**Usada em:** Aula 03.
+
+Medidas de **344 pinguins** de três espécies (*Pygoscelis adeliae*, *P. antarcticus* e
+*P. papua*), coletadas entre 2007 e 2009 em três ilhas do arquipélago Palmer, na
+Antártida, pela Dra. Kristen Gorman no âmbito do programa Palmer Station LTER. É a base
+que a comunidade de ensino vem usando no lugar da Iris: mesmo formato, dados recentes e
+procedência documentada.
+
+- **Referência:** GORMAN, K. B.; WILLIAMS, T. D.; FRASER, W. R. Ecological sexual
+  dimorphism and environmental variability within a community of Antarctic penguins
+  (genus *Pygoscelis*). *PLoS ONE*, v. 9, n. 3, e90081, 2014.
+  <https://doi.org/10.1371/journal.pone.0090081>
+- **Pacote de origem:** `palmerpenguins` (HORST, A. M.; HILL, A. P.; GORMAN, K. B., 2020).
+  Dados originais do Environmental Data Initiative, sob licença CC0.
+- **Versão utilizada:** a distribuída com o *seaborn*, com nomes de coluna limpos.
+  Espelho: <https://raw.githubusercontent.com/mwaskom/seaborn-data/master/penguins.csv>
+
+### Colunas (nomes originais → nomes usados na aula)
+
+| Original | Aula | Descrição |
+|---|---|---|
+| `species` | `especie` | **classe**: `Adelie`, `Chinstrap` ou `Gentoo` |
+| `island` | `ilha` | `Biscoe`, `Dream` ou `Torgersen` |
+| `bill_length_mm` | `bico_comprimento` | comprimento do bico (mm) |
+| `bill_depth_mm` | `bico_profundidade` | profundidade (altura) do bico (mm) |
+| `flipper_length_mm` | `nadadeira` | comprimento da nadadeira (mm) |
+| `body_mass_g` | `massa_g` | massa corporal (g) |
+| `sex` | `sexo` | `MALE` / `FEMALE` |
+
+### Observações importantes para a aula
+
+- **Valores ausentes:** 2 pinguins não têm nenhuma medida (só espécie e ilha) e outros
+  11 estão sem o sexo anotado. A aula 03 descarta as 2 linhas sem medidas e diz na tela
+  quantas foram.
+- Classes desbalanceadas: 152 Adelie, 124 Gentoo, 68 Chinstrap.
+- O par **Adelie × Chinstrap** é o problema binário da aula: as duas espécies têm bico
+  de profundidade quase idêntica (18,3 × 18,4 mm) e massa parecida, mas comprimento de
+  bico bem diferente (38,8 × 48,8 mm). Com esse único atributo a regressão logística
+  chega a 95,9%; com os dois atributos do bico, 97,3%.
+- ⚠️ Cuidado ao inverter os eixos: *bill depth* é a **altura** do bico, não a
+  profundidade da narina. Gentoo é a espécie de bico raso (15,0 mm), o que a separa
+  quase perfeitamente das outras duas.
+- Combinações sem o comprimento do bico (profundidade + massa, por exemplo) chegam a
+  68,9% de acurácia - exatamente o mesmo do classificador majoritário. É o exercício 1
+  da aula.
 
 ---
 
