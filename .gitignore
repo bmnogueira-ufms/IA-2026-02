@@ -38,3 +38,6 @@ desktop.ini
 # --- Saídas temporárias ---
 *.log
 /tmp/
+
+# pasta temporária: arquivos que o sandbox não consegue apagar
+_to_delete/
